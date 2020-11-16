@@ -1,9 +1,10 @@
 const { prompt } = require("inquirer");
 const logo = require("asciiart-logo");
 const db = require("./db");
+const { removeRole, removeDepartment } = require("./db");
 require("console.table");
 
-init();
+
 
 // Display logo text, load main prompts
 function init() {
@@ -12,6 +13,7 @@ function init() {
   console.log(logoText);
 
   loadMainPrompts();
+
 }
 
 async function loadMainPrompts() {
@@ -41,10 +43,29 @@ async function loadMainPrompts() {
           name: "Remove Employee",
           value: "REMOVE_EMPLOYEE"
         },
-        //You will need to complete the rest of the switch statement
         {
-          name: "Quit",
-          value: "QUIT"
+          name: "Update Employee Role",
+          value: "UPDATE_EMPLOYEE_ROLE"
+        },
+        {
+          name: "View All Roles",
+          value: "REMOVE_ROLE"
+        },
+        {
+          name:"View all Departments",
+          value:"VIEW_DEPARTEMENTS"
+        },
+        {
+          name: "Add Department",
+          value: "ADD_DEPARTMENT"
+        },
+        {
+          name: "Remove Department",
+          value: "REMOVE_DEPARTMENT"
+        },
+        {
+          name: "Exit",
+          value: "Exit"
         }
       ]
     }
@@ -62,9 +83,18 @@ async function loadMainPrompts() {
       return addEmployee();
     case "REMOVE_EMPLOYEE":
       return removeEmployee();
-    //You will need to complete the rest of the cases 
+    case "UPDATE_EMPLOYEE_ROLE":
+      return updateEmployeeRole();
+    case "REMOVE_ROLE":
+      return removeRole();
+    case "VIEW_DEPARTEMENTS":
+      return findAllDepartments();
+    case "ADD_DEPARTMENT":
+      return addDepartment();
+    case "REMOVE_DEPARTMENT":
+      return removeDepartment();
     default:
-      return quit();
+      return exit();
   }
 }
 
@@ -89,7 +119,7 @@ async function viewEmployeesByDepartment() {
     {
       type: "list",
       name: "departmentId",
-      message: "Which department would you like to see employees for?",
+      message: "What department would you like to see employees for?",
       choices: departmentChoices
     }
   ]);
@@ -114,7 +144,7 @@ async function viewEmployeesByManager() {
     {
       type: "list",
       name: "managerId",
-      message: "Which employee do you want to see direct reports for?",
+      message: "What employee do you want to see direct reports for?",
       choices: managerChoices
     }
   ]);
@@ -172,8 +202,11 @@ async function addEmployee() {
   ]);
 }
 
-
-function quit() {
-  console.log("Goodbye!");
-  process.exit();
+async function exit() {
+    console.log("Goodbye!");
+    process.exit();
 }
+
+
+
+init();

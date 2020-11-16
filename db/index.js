@@ -74,8 +74,8 @@ class DB {
     );
   }
 
-  // Create a new department
-  createDepartment(department) {
+  // add a new department
+  addDepartment(department) {
     return this.connection.query("INSERT INTO department SET ?", department);
   }
 
