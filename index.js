@@ -196,7 +196,7 @@ async function addEmployee() {
   ]);
 
   const roleChoices = roles.map(({ id, title }) => ({
-    name: name,
+    name: title,
     value: id
   }));
 
@@ -210,7 +210,7 @@ async function addEmployee() {
 
   employee.role_ID = roleID;
 
-  const managerChoices = employee.map (({ id, first_name, last_name}) => ({
+  const managerChoices = employees.map (({ id, first_name, last_name}) => ({
     name: `${first_name} ${last_name}`,
     value: id
   }));
@@ -228,7 +228,7 @@ async function addEmployee() {
 
   employee.manager_ID = managerID;
 
-  await db.addEmployee(employee);
+  await db.createEmployee(employee);
 
   console.log(`Added ${employee.first_name} ${employee.last_name} to the database`);
 
